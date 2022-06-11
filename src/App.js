@@ -1,30 +1,50 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
-  const [value, setValue] = useState("oi");
+  const [value, setValue] = useState("");
+  const [pokeName, setPokeName] = useState("Name:");
+  const [pokeType, setPokeType] = useState("Types");
+  const [pokePhoto, setPokePhoto] = useState("https://cdn3d.iconscout.com/3d/premium/thumb/pokeball-4744505-3956098.png");
 
-  const name = "squirtle";
+  const name = "bulbasaur";
   const getPokemonData = () => {
   axios
   .get("https://pokeapi.co/api/v2/pokemon/" + name).then(
     (res) => {
-    pokemon = res
-    setValue(pokemon.data.name)
+      setValue(res);
   }).catch((error) => {
     console.log(error)
   })
 };
 
-
-
-let pokemon = {};
+useEffect(() => {
+  if(!value){
+    console.log("empty")
+  } else{
+    setPokeName(value.data.name);
+    setPokeType(value.data.types[0].type.name);
+    setPokePhoto(value.data.sprites.front_shiny);
+  }
+}, [value]);
 
   return (
     <div className="App">
-      <h1>New Project!</h1>
-      <button onClick={getPokemonData}>Get Pokemon Data</button>
-      <p className="pokemonName">{value}</p>
+      <div className="title">
+       Pokemon Data App
+      </div>
+      <div className="getButton">
+      <button onClick={getPokemonData} class="glow-on-hover">Get Pokemon Data</button>
+      </div>
+      <div className="pokeName">
+        {pokeName}
+      </div>
+      <div className="pokeType">
+        {pokeType}
+      </div>
+      <div className="pokePhoto">
+      <img src={pokePhoto} id="pokeImg"></img>
+      </div>
     </div>
   );
 }
