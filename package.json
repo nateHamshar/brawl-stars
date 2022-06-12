@@ -1,6 +1,6 @@
 {
   "homepage": "https://natehamshar.github.io/pokemon-info/",
-  "name": "brawl-stars-project",
+  "name": "pokemon-data-app",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
